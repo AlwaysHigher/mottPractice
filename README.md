@@ -14,7 +14,7 @@ pandas: https://pandas.pydata.org/
 
 ***********   Notes   ***********
 
-1. According to the unixdate time, it seems the data is not captured for one hour period of time. In order to complete the questions, I will assume the data is recorded at regular intervals. 
+1. According to the unixdate time, it seems the data is not captured for one hour period of time. In order to complete the questions, I will assume the data is recorded at regular intervals 60 minute. 
 
 2. Time zone is using UTC insteand of EDT(where Pennsylvania based) as it won't afftect the result this time.
 
