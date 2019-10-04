@@ -2,18 +2,23 @@ import pandas as pd
 from datetime import datetime
 
 df = pd.read_csv ("accumRainfall.csv", sep = '\t', encoding='utf-16')
-df['unixdatetime'] = pd.to_datetime(df['unixdatetime'],unit='s')
+
+date_col_name = input ('Please enter the column name for datetime from the table:')
+value_col_name = input ('Please enter the column name for values from the table:')
+running_mins = int (input ('Please enter total running minute:'))
+
+df[date_col_name] = pd.to_datetime(df[date_col_name],unit='s')
 
 #df['unixdatetime'].index = pd.DatetimeIndex(df['unixdatetime'].index).tz_localize('UTC').tz_convert('US/Eastern')
 
-date_time = df['unixdatetime'].tolist()
-value = df['value'].tolist()
+date_time = df[date_col_name].tolist()
+value = df[value_col_name].tolist()
 
 def max_rainfall(l) :
 
     data = {}
 
-    split = [l[i:i+46] for i in range(0, len(l), 1)]
+    split = [l[i:i+len(l)//2+1] for i in range(0, len(l), 1)]
 
     for i in split:
         j = sum(i)
@@ -35,5 +40,5 @@ def accumulate(i) :
 
 time_index, peak_rain = max_rainfall(value)
 
-print ('The accumulated rain fall is:', round(accumulate(value),2),'mm.')
-print('Peak period starts after around', int(time_index/91*60) ,'mins, and the accumulated rain fall for the peak periold is:', round(peak_rain,2),'mm.')
+print ('The de-accumulated rain fall data are:', value)
+print('Peak period starts after around', int(time_index/len(date_time)*running_mins) ,'mins, and the accumulated rain fall for the peak periold is:', round(peak_rain,2),'mm.')
