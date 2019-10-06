@@ -49,5 +49,5 @@ rain_time = round (de_accumulate(value, running_mins),2)
 time_index, peak_rain = max_rainfall(value,peak_mins,running_mins)
 
 print ('The de-accumulated values are:', value)
-print ('The average rain time each records are', rain_time,'minute.')
+print ('The average rain time for each records are', rain_time,'minute.')
 print('Peak period starts after around', int(round(time_index*rain_time)) ,'mins, and the accumulated rain fall for the peak periold is:', round(peak_rain,2),'mm.')
