@@ -15,8 +15,11 @@ pandas: https://pandas.pydata.org/
 4. Four parameters are required to get the output for the questions:
 
       Please enter the column name for datetime from the table: unixdatetime
+      
       Please enter the column name for values from the table: value
+      
       Please enter total running minute:  60
+      
       Please enter how long the peak period minute are: 30
 
 
