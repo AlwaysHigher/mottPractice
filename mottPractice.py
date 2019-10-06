@@ -3,7 +3,6 @@ from datetime import datetime
 
 df = pd.read_csv ("accumRainfall.csv", sep = '\t', encoding='utf-16')
 
-
 try:
     date_col_name = input ('Please enter the column name for datetime from the table:')
     value_col_name = input ('Please enter the column name for values from the table:')
@@ -44,7 +43,6 @@ def max_rainfall(l,p,r) :
     max_index = max_value[0]
     peak_value = max_value[1]
     return max_index, peak_value
-
 
 rain_time = round (de_accumulate(value, running_mins),2)
 
