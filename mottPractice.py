@@ -8,6 +8,7 @@ try:
     date_col_name = input ('Please enter the column name for datetime from the table:')
     value_col_name = input ('Please enter the column name for values from the table:')
     running_mins = int (input ('Please enter total running minute:'))
+    peak_mins = int (input ('Please enter how long the peak period minute are:'))
 
     df[date_col_name] = pd.to_datetime(df[date_col_name],unit='s')
     date_time = df[date_col_name].tolist()
@@ -19,13 +20,20 @@ except ValueError:
     print('Please enter valid running time.')
     exit()
 
+def de_accumulate(v,t) :
+    da = t/len(v)
+    return da
 
-
-def max_rainfall(l) :
+def max_rainfall(l,p,r) :
 
     data = {}
 
-    split = [l[i:i+len(l)//2+1] for i in range(0, len(l), 1)]
+    try:
+        array_len_index = int(r/p)
+        split = [l[i:i+len(l)//array_len_index+1] for i in range(0, len(l), 1)]
+    except ZeroDivisionError:
+            print('Peak period must longer than total running minute.')
+            exit()
 
     for i in split:
         j = sum(i)
@@ -37,13 +45,11 @@ def max_rainfall(l) :
     peak_value = max_value[1]
     return max_index, peak_value
 
-def accumulate(i) :
-    total = 0
-    for v in i :
-        total += v
-    return total
 
-time_index, peak_rain = max_rainfall(value)
+time_gap = round (de_accumulate(value, running_mins),2)
 
-#print ('The de-accumulated rain fall data are:', value)
-print('Peak period starts after around', int(time_index/len(date_time)*running_mins) ,'mins, and the accumulated rain fall for the peak periold is:', round(peak_rain,2),'mm.')
+time_index, peak_rain = max_rainfall(value,peak_mins,running_mins)
+
+print ('The de-accumulated values are:', value)
+print ('The average gap between each records are', time_gap,'minute.')
+print('Peak period starts after around', int(round(time_index*time_gap)) ,'mins, and the accumulated rain fall for the peak periold is:', round(peak_rain,2),'mm.')
